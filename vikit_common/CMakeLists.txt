@@ -20,35 +20,36 @@ else()
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=armv8-a")
 endif()
 
-IF(CMAKE_COMPILER_IS_GNUCC)
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
-ELSE()
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-ENDIF()
+# IF(CMAKE_COMPILER_IS_GNUCC)
+#   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+# ELSE()
+#   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+# ENDIF()
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -O3 -fsee -fomit-frame-pointer -fno-signed-zeros -fno-math-errno -funroll-loops")
 
 # Add plain cmake packages 
 FIND_PACKAGE(OpenCV REQUIRED)
 FIND_PACKAGE(Eigen REQUIRED)
-FIND_PACKAGE(Sophus REQUIRED)
+# FIND_PACKAGE(Sophus REQUIRED)
 
 # Include dirs
 INCLUDE_DIRECTORIES(
   include
   ${Eigen_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
-  ${Sophus_INCLUDE_DIRS}
+  # ${Sophus_INCLUDE_DIRS}
 )
 
 IF(USE_ROS)
   FIND_PACKAGE(catkin REQUIRED COMPONENTS roscpp cmake_modules)
   LIST(APPEND INCLUDE_DIRECTORIES ${catkin_INCLUDE_DIRS})
   catkin_package(
-    DEPENDS Eigen OpenCV Sophus
+    DEPENDS Eigen OpenCV 
     CATKIN_DEPENDS roscpp
     INCLUDE_DIRS include
     LIBRARIES ${PROJECT_NAME}
-  )
+  )#Sophus
 ELSE()
   SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
   SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

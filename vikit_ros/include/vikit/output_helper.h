@@ -11,7 +11,8 @@
 #include <string>
 #include <ros/ros.h>
 #include <Eigen/Core>
-#include <sophus/se3.h>
+// #include <sophus/se3.h>
+#include "vikit/sophus/se3.hpp"
 #include <tf/transform_broadcaster.h>
 
 namespace vk {
@@ -21,7 +22,7 @@ using namespace std;
 using namespace Eigen;
 
 void
-publishTfTransform      (const Sophus::SE3& T, const ros::Time& stamp,
+publishTfTransform      (const Sophus::SE3d& T, const ros::Time& stamp,
                          const string& frame_id, const string& child_frame_id,
                          tf::TransformBroadcaster& br);
 

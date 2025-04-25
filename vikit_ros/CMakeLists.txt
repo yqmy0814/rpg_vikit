@@ -7,11 +7,12 @@ SET(CMAKE_VERBOSE_MAKEFILE OFF)
 # Set build flags
 SET(CMAKE_CXX_FLAGS "-Wall -D_LINUX -D_REENTRANT -march=native -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unknown-pragmas")
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -O0 -g")
-IF(CMAKE_COMPILER_IS_GNUCC)
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
-ELSE()
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-ENDIF()
+# IF(CMAKE_COMPILER_IS_GNUCC)
+#   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+# ELSE()
+#   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+# ENDIF()
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 
 # Add catkin and required ROS packages
 FIND_PACKAGE(catkin REQUIRED COMPONENTS roscpp vikit_common visualization_msgs tf cmake_modules)
@@ -19,7 +20,7 @@ FIND_PACKAGE(catkin REQUIRED COMPONENTS roscpp vikit_common visualization_msgs t
 # Add plain cmake packages 
 FIND_PACKAGE(OpenCV REQUIRED)
 find_package(Eigen3 REQUIRED)
-FIND_PACKAGE(Sophus REQUIRED)
+# FIND_PACKAGE(Sophus REQUIRED)
 
 # Include dirs
 INCLUDE_DIRECTORIES(
@@ -32,11 +33,11 @@ INCLUDE_DIRECTORIES(
 
 # Describe catkin Project
 catkin_package(
-    DEPENDS EIGEN3 OpenCV Sophus vikit_common
+    DEPENDS EIGEN3 OpenCV  vikit_common
     CATKIN_DEPENDS roscpp visualization_msgs tf 
     INCLUDE_DIRS include
     LIBRARIES ${PROJECT_NAME}
-)
+)#Sophus
 
 # Set Sourcefiles
 LIST(APPEND SOURCEFILES 
